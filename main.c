@@ -6,7 +6,7 @@
 void Trignometry()
 {
     printf("Enter The Choice For Your Trigonometric Function :");
-    printf("\n1.Sin Function \n2.Cos Function \n3.Tan Function  \n4.Sininverse Function \n5.Cosinverse Function \n6.Taninverse Function\n");
+    printf("\n1.Sin Function \n2.Cos Function \n3.Tan Function  \n");
     int choice;
     scanf("%d", &choice);
     double x[points];
@@ -14,7 +14,7 @@ void Trignometry()
 
     for (int i = 0; i < points; i++)
     {
-        x[i] = i/10.0- 2.5;
+        x[i] = i / 10.0 - 2.5;
         switch (choice)
         {
         case 1:
@@ -25,15 +25,6 @@ void Trignometry()
             break;
         case 3:
             y[i] = Tan(x[i]);
-            break;
-        case 4:
-            y[i] = asin(x[i]);
-            break;
-        case 5:
-            y[i] = acos(x[i]);
-            break;
-        case 6:
-            y[i] = atan(x[i]);
             break;
         default:
             printf("Enter A valid Choice!!! \n");
@@ -49,13 +40,50 @@ void Trignometry()
 
     WriteToFile(pngdata, length, "Trigonometry.png");
 }
+
+void InverseTrigonometry()
+{
+    printf("Enter The Choice For Your Inverse Trigonometric Function :\n");
+    printf("1.Sin inverse Function \n2.Cos inverse Function \n3.Tan inverse Function\n");
+    int choice;
+    scanf("%d", &choice);
+    double x[points];
+    double y[points];
+    for (int i = 0; i < points; i++)
+    {
+        x[i] = i / 10.0 - 2.5;
+        switch (choice)
+        {
+        case 1:
+            y[i] = asin(x[i]);
+            break;
+        case 2:
+            y[i] = acos(x[i]);
+            break;
+        case 3:
+            y[i] = atan(x[i]);
+            break;
+        default:
+            printf("Enter A valid Choice!!! \n");
+        }
+    }
+
+    RGBABitmapImageReference *imageRef = CreateRGBABitmapImageReference();
+    DrawScatterPlot(imageRef, 800, 600, x, points, y, points);
+
+    size_t length;
+    double *pngdata = ConvertToPNG(&length, imageRef->image);
+    // DeleteImage(imageRef->image);
+
+    WriteToFile(pngdata, length, "InverseTrigonometry.png");
+}
 void Parabola()
 {
     printf("Enter The Choice For Your Trigonometric Function :");
     printf("\n1.Parabola symmetric to y axis +ve \n2.Parabola symmetric to y axis -ve \n3.Parabola symmetric to x axis +ve\n4.Parabola symmetric to x axis -ve\n");
     int choice;
     scanf("%d", &choice);
-   
+
     double x[points];
     double y[points];
 
@@ -80,7 +108,7 @@ void Parabola()
             y[i] = i / 4 - 12;
             x[i] = -(pow(y[i], 2));
             break;
-       
+
         default:
             printf("Enter A valid Choice!!! \n");
         }
@@ -124,10 +152,10 @@ void Linear()
 }
 
 void Histogram()
-{  
+{
     int N;
     printf("Enter the number of dataentry you want ");
-    scanf("%d",&N);
+    scanf("%d", &N);
     int value[N];
     int i, j, n, x;
 
@@ -143,7 +171,7 @@ void Histogram()
     // printf("          |\n");
     for (n = 0; n < N; ++n)
     {
-        for (i = 1; i<=1; i++)
+        for (i = 1; i <= 1; i++)
         {
             if (i == 1)
                 printf("Group-%1d   |", n + 1);
@@ -161,11 +189,10 @@ void Histogram()
     }
 }
 
-
 int main()
 {
     int choice;
-    printf("\n1.Linear Graph \n2.Trignometric Graph \n3.Parabola Graph \n3.Histogram \n5.Exit!! \n");
+    printf("\n1.Linear Graph \n2.Trignometric Graph \n3.Inverse Trignometric Graph \n4.Parabola Graph \n5.Histogram \n6.Exit!! \n");
     printf("Enter Your Choice : ");
     scanf("%d", &choice);
     switch (choice)
@@ -177,12 +204,15 @@ int main()
         Trignometry();
         break;
     case 3:
-         Parabola();
+        InverseTrigonometry();
         break;
     case 4:
-        Histogram();
+        Parabola();
         break;
     case 5:
+        Histogram();
+        break;
+    case 6:
         return 0;
     default:
         printf("Invalid Choice Please Try Again...");
